@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Kling AI Video</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Kling AI Video</h1>
+            <button id="settingsBtn" class="icon-btn">⚙️</button>
+        </div>
+
+        <!-- Settings Panel -->
+        <div id="settingsPanel" class="panel hidden">
+            <h3>Settings</h3>
+            <div class="form-group">
+                <label>Replicate API Key</label>
+                <input type="password" id="apiKeyInput" placeholder="r8_...">
+            </div>
+
+            <button id="saveSettingsBtn" class="btn primary">Save Settings</button>
+        </div>
+
+        <!-- Gen Settings -->
+        <div class="section">
+            <div class="form-group-row">
+                <div class="form-group half">
+                    <label>Mode</label>
+                    <select id="modeSelect">
+                        <option value="i2v">Image to Video</option>
+                        <option value="t2v">Text to Video</option>
+                    </select>
+                </div>
+                <div class="form-group half">
+                    <label>Duration</label>
+                    <select id="durationSelect">
+                        <option value="5">5s (Standard)</option>
+                        <option value="10">10s (Pro)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Layer Selection -->
+        <div class="section" id="layerSelectionSection">
+            <div class="layer-slots">
+                <!-- Start Frame Slot -->
+                <div class="layer-slot">
+                    <div class="slot-header">
+                        <label>Start Frame</label>
+                        <button id="setStartBtn" class="icon-btn small" title="Set from Selection">+</button>
+                    </div>
+                    <div id="startLayerInfo" class="layer-box empty">
+                        <p>No Layer Set</p>
+                    </div>
+                </div>
+
+                <!-- End Frame Slot -->
+                <div class="layer-slot">
+                    <div class="slot-header">
+                        <label>End Frame (Optional)</label>
+                        <button id="setEndBtn" class="icon-btn small" title="Set from Selection">+</button>
+                    </div>
+                    <div id="endLayerInfo" class="layer-box empty">
+                        <p>No Layer Set</p>
+                    </div>
+                    <button id="clearEndBtn" class="text-btn hidden">Clear</button>
+                </div>
+            </div>
+            <p class="hint-text">Select a layer in AE and click + to assign.</p>
+        </div>
+
+        <!-- Prompt -->
+        <div class="section">
+            <label>Prompt</label>
+            <textarea id="promptInput" rows="3" placeholder="Describe the motion..."></textarea>
+        </div>
+
+        <div class="section">
+            <label>Negative Prompt</label>
+            <input type="text" id="negativePromptInput" placeholder="blur, distortion, etc.">
+        </div>
+
+        <!-- Generate -->
+        <div class="section">
+            <button id="generateBtn" class="btn primary large" disabled>Generate Video</button>
+        </div>
+
+        <!-- Status -->
+        <div id="statusArea" class="status-area hidden"></div>
+
+        <!-- Result -->
+        <div id="resultArea" class="result-area hidden">
+            <video id="resultVideo" controls loop></video>
+            <button id="importBtn" class="btn secondary">Import to Timeline</button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        window.onerror = function (msg, url, line, col, error) {
+            alert("Error: " + msg + "\n\nLine: " + line + "\nFile: " + url);
+            return false;
+        };
+    </script>
+    <script src="js/CSInterface.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

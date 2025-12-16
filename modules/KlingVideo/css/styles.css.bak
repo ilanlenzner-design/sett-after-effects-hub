@@ -1,0 +1,252 @@
+:root {
+    --bg-color: #1d1e1d;
+    --panel-bg: #2a2b2a;
+    --text-color: #ffffff;
+    --accent-color: #5794eb;
+    --accent-hover: #4a80ce;
+    --border-color: #3d3e3d;
+    --input-bg: #151615;
+    --success-color: #4caf50;
+    --error-color: #f44336;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 16px;
+    font-size: 13px;
+    overflow-x: hidden;
+}
+
+h1 {
+    font-size: 18px;
+    margin: 0;
+    font-weight: 600;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.panel {
+    background: var(--panel-bg);
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    border: 1px solid var(--border-color);
+}
+
+.hidden {
+    display: none !important;
+}
+
+.form-group {
+    margin-bottom: 12px;
+}
+
+label {
+    display: block;
+    margin-bottom: 6px;
+    color: #aaaaaa;
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+input,
+textarea {
+    width: 100%;
+    background: var(--input-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 8px;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-family: inherit;
+    font-size: 13px;
+}
+
+input:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--accent-color);
+}
+
+.btn {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.2s;
+    font-size: 13px;
+}
+
+.btn.primary {
+    background: var(--accent-color);
+    color: white;
+}
+
+.btn.primary:hover {
+    background: var(--accent-hover);
+}
+
+.btn.primary:disabled {
+    background: #3d3e3d;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.btn.secondary {
+    background: transparent;
+    border: 1px solid var(--accent-color);
+    color: var(--accent-color);
+    margin-top: 8px;
+}
+
+.btn.secondary:hover {
+    background: rgba(87, 148, 235, 0.1);
+}
+
+.icon-btn {
+    background: transparent;
+    border: none;
+    color: #aaaaaa;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 4px;
+}
+
+.icon-btn:hover {
+    color: white;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.info-box {
+    background: var(--panel-bg);
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+}
+
+.info-box p {
+    margin: 4px 0;
+}
+
+.placeholder {
+    color: #666;
+    font-style: italic;
+}
+
+.status-area {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 8px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 11px;
+    color: #ddd;
+    max-height: 100px;
+    overflow-y: auto;
+}
+
+video {
+    width: 100%;
+    border-radius: 4px;
+    background: black;
+    margin-bottom: 8px;
+}
+
+.form-group-row {
+    display: flex;
+    gap: 12px;
+}
+
+.form-group.half {
+    flex: 1;
+}
+
+.layer-slots {
+    display: flex;
+    gap: 10px;
+}
+
+.layer-slot {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.slot-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.layer-box {
+    background: var(--input-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 8px;
+    font-size: 11px;
+    min-height: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    transition: all 0.2s;
+}
+
+.layer-box.empty {
+    color: #666;
+    border-style: dashed;
+    align-items: center;
+}
+
+.layer-box:not(.empty) {
+    border-color: var(--accent-color);
+    background: rgba(87, 148, 235, 0.1);
+}
+
+.text-btn {
+    background: none;
+    border: none;
+    color: var(--error-color);
+    font-size: 10px;
+    cursor: pointer;
+    text-align: right;
+    margin-top: 2px;
+    padding: 2px 0;
+}
+
+.text-btn.hidden {
+    display: none;
+}
+
+.hint-text {
+    font-size: 10px;
+    color: #666;
+    margin-top: 6px;
+    font-style: italic;
+    text-align: center;
+}

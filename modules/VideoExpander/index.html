@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Expander</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1><span class="title-icon">🎬</span> <span class="title-text">Video Expander</span></h1>
+            <div class="header-right">
+                <img src="logo.png" alt="Logo" class="header-logo">
+                <button id="settingsBtn" class="icon-btn" title="Settings">⚙️</button>
+            </div>
+        </div>
+
+        <!-- Settings Panel (Hidden by default) -->
+        <div id="settingsPanel" class="settings-panel hidden">
+            <h3>API Configuration</h3>
+            <div class="form-group">
+                <label for="geminiKey">Gemini API Key:</label>
+                <input type="password" id="geminiKey" placeholder="Enter Gemini API key">
+            </div>
+            <div class="form-group">
+                <label for="runwayKey">Runway API Key:</label>
+                <input type="password" id="runwayKey" placeholder="Enter Runway API key">
+            </div>
+            <button id="saveSettings" class="btn btn-primary">Save Settings</button>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Selected Layer Info -->
+            <div class="info-card">
+                <h3>📹 Selected Layer</h3>
+                <div class="instructions">
+                    <p style="font-size: 12px; color: #9ca3af; margin-bottom: 8px;">
+                        1️⃣ Click a video layer in AE timeline<br>
+                        2️⃣ Click "Refresh Selection"
+                    </p>
+                </div>
+                <div id="layerInfo" class="layer-info">
+                    <p class="placeholder">No layer selected</p>
+                </div>
+                <button id="refreshLayer" class="btn btn-secondary">🔄 Refresh Selection</button>
+            </div>
+
+            <!-- Style Input -->
+            <div class="form-group">
+                <label for="styleInput">Style / Prompt:</label>
+                <textarea id="styleInput"
+                    placeholder="Describe the creative transformation you want... (e.g., 'cinematic sci-fi style', 'vintage film look', 'anime style')"
+                    rows="4"></textarea>
+            </div>
+
+            <!-- Generate Button -->
+            <button id="generateBtn" class="btn btn-primary btn-large">
+                <span id="btnText">✨ Generate Video</span>
+                <span id="btnLoader" class="loader hidden"></span>
+            </button>
+
+            <!-- Status Display -->
+            <div id="statusContainer" class="status-container hidden">
+                <div class="status-header">
+                    <h3>⚡ Status</h3>
+                </div>
+                <div id="statusMessages" class="status-messages"></div>
+            </div>
+
+            <!-- Result Display -->
+            <div id="resultContainer" class="result-container hidden">
+                <h3>✅ Generated Video</h3>
+                <video id="resultVideo" controls></video>
+                <button id="importBtn" class="btn btn-success">Import to After Effects</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script type="text/javascript" src="js/CSInterface.js"></script>
+    <script type="text/javascript" src="js/config.js"></script>
+    <script type="text/javascript" src="js/services/geminiService.js"></script>
+    <script type="text/javascript" src="js/services/runwayService.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .result-item.selected {
+            border-color: #3ea6ff;
+            box-shadow: 0 0 0 2px #3ea6ff;
+        }
+
+        .import-section {
+            margin-top: 20px;
+            text-align: center;
+            padding: 10px;
+            background: #2a2a2a;
+            border-radius: 4px;
+            display: none;
+            /* Hidden by default until results exist */
+        }
+
+        .import-btn {
+            background-color: #3ea6ff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            width: 100%;
+            opacity: 0.5;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .import-btn.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+    </style>
+    <title>AI Image Variations</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="js/CSInterface.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <h1>AI Image Variations</h1>
+                <p class="subtitle">Powered by SeedDream AI</p>
+            </div>
+            <button id="settingsBtn" class="settings-btn" title="Settings">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+            </button>
+        </header>
+
+        <!-- API Key Section -->
+        <section class="api-section" id="apiKeySection">
+            <div class="input-group">
+                <label for="replicateKey">Replicate API Key</label>
+                <input type="password" id="replicateKey" placeholder="Enter your Replicate API key">
+                <button id="saveReplicateKey" class="btn-secondary">Save Key</button>
+            </div>
+            <p class="help-text">Get your API key from <a href="#" id="openReplicate">Replicate.com</a></p>
+        </section>
+
+        <!-- Image Upload Section -->
+        <section class="upload-section">
+            <div class="upload-area" id="uploadArea">
+                <input type="file" id="fileInput" accept="image/*" hidden>
+                <div class="upload-placeholder">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="17 8 12 3 7 8"></polyline>
+                        <line x1="12" y1="3" x2="12" y2="15"></line>
+                    </svg>
+                    <p>Click to upload or drag image here</p>
+                    <span class="file-types">Supports: JPG, PNG, WebP</span>
+                </div>
+                <img id="previewImage" class="preview-image" style="display: none;">
+            </div>
+        </section>
+
+        <!-- Options Section -->
+        <section class="options-section">
+            <h3>Generation Options</h3>
+
+            <!-- Model Selection -->
+            <div class="input-group">
+                <label for="modelSelect">AI Model</label>
+                <select id="modelSelect" class="model-select">
+                    <option value="nano-banana" selected>Nano Banana (Google)</option>
+                    <option value="sdxl">SDXL (Stable Diffusion XL)</option>
+                    <option value="seedream-4">SeedDream 4 (ByteDance)</option>
+                    <option value="imagen-4-fast">Imagen 4 Fast (Google)</option>
+                    <option value="ideogram-v3-quality">Ideogram v3 Quality</option>
+                </select>
+            </div>
+
+            <div class="toggle-group">
+                <div class="toggle-item">
+                    <label class="toggle-label">
+                        <input type="checkbox" id="preserveColors" checked>
+                        <span class="toggle-switch"></span>
+                        <span>Preserve Colors</span>
+                    </label>
+                </div>
+                <div class="toggle-item">
+                    <label class="toggle-label">
+                        <input type="checkbox" id="preserveComposition" checked>
+                        <span class="toggle-switch"></span>
+                        <span>Preserve Composition</span>
+                    </label>
+                </div>
+            </div>
+        </section>
+
+        <!-- Generate Button -->
+        <button id="generateBtn" class="btn-primary" disabled>
+            Generate Variations
+        </button>
+
+        <!-- Progress Section -->
+        <div id="progressSection" class="progress-section" style="display: none;">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <p id="progressText">Analyzing image...</p>
+        </div>
+
+        <!-- Results Section -->
+        <section id="resultsSection" class="results-section" style="display: none;">
+            <h3>Generated Variations</h3>
+            <div class="results-grid" id="results">
+                <!-- Variations will be inserted here -->
+            </div>
+            <div id="importSection" class="import-section">
+                <button id="importBtn" class="import-btn">Import Selected to After Effects</button>
+            </div>
+        </section>
+
+        <!-- Error Message -->
+        <div id="errorMessage" class="error-message" style="display: none;"></div>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>

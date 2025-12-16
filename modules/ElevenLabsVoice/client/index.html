@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ElevenLabs Voiceover</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Inter Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="app-container">
+        <header>
+            <h1>ElevenLabs Voiceover</h1>
+            <button id="settings-btn" class="icon-btn" aria-label="Settings">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path
+                        d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
+                    </path>
+                </svg>
+            </button>
+        </header>
+
+        <main>
+            <!-- API Key Modal (Hidden by default) -->
+            <div id="settings-modal" class="modal hidden">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2>Settings</h2>
+                        <button id="close-settings" class="close-btn">&times;</button>
+                    </div>
+                    <div class="input-group">
+                        <label for="api-key">ElevenLabs API Key</label>
+                        <input type="password" id="api-key" placeholder="Enter your API Key">
+                    </div>
+                    <button id="save-settings" class="primary-btn">Save Key</button>
+                </div>
+            </div>
+
+            <!-- Voice Selection -->
+            <div class="control-group">
+                <label for="voice-select">Voice</label>
+                <div class="select-wrapper">
+                    <select id="voice-select" disabled>
+                        <option value="">Loading voices...</option>
+                    </select>
+                </div>
+                <button id="refresh-voices" class="icon-btn small" title="Refresh Voices">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M23 4v6h-6"></path>
+                        <path d="M1 20v-6h6"></path>
+                        <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 1 20.49 15"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Text Input -->
+            <div class="control-group">
+                <label for="text-input">Script</label>
+                <textarea id="text-input" placeholder="Type or paste your script here..." rows="8"></textarea>
+            </div>
+
+            <!-- Model Settings -->
+            <div class="control-group">
+                <label for="model-select">Model</label>
+                <div class="select-wrapper">
+                    <select id="model-select">
+                        <option value="eleven_monolingual_v1">Eleven Monolingual v1</option>
+                        <option value="eleven_multilingual_v1">Eleven Multilingual v1</option>
+                        <option value="eleven_multilingual_v2" selected>Eleven Multilingual v2</option>
+                        <option value="eleven_turbo_v2">Eleven Turbo v2</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Generate Button -->
+            <div class="action-area">
+                <button id="generate-btn" class="primary-btn full-width">
+                    <span class="btn-text">Generate Voiceover</span>
+                    <span class="loader hidden"></span>
+                </button>
+            </div>
+
+            <div id="status-message" class="status-msg"></div>
+        </main>
+    </div>
+
+    <!-- CSInterface -->
+    <script src="js/CSInterface.js"></script>
+    <script src="js/elevenLabsService.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
