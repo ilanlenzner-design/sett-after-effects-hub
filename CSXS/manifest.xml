@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExtensionManifest Version="7.0" ExtensionBundleId="com.sett.hub" ExtensionBundleVersion="1.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  
+  <ExtensionList>
+    <Extension Id="com.sett.hub" Version="1.0.0" />
+    <Extension Id="com.ilanlenzner.aiimageexpander.panel" Version="1.0.0" />
+    <Extension Id="com.ilanlenzner.aiupscaler.panel" Version="1.0.0" />
+    <Extension Id="com.sett.bgremover" Version="1.0.0" />
+    <Extension Id="com.ilanlenzner.aiImageVariations" Version="1.0.0" />
+    <Extension Id="com.kling.extension.panel" Version="1.0.0" />
+    <Extension Id="com.videoexpander.panel" Version="1.0.0" />
+    <Extension Id="com.ilanlenzner.sonicforge.panel" Version="1.0.0" />
+    <Extension Id="com.sonicforge.extension.panel" Version="1.0.0" />
+    <Extension Id="com.antigravity.elevenlabs.voiceover.panel" Version="1.0.0" />
+  </ExtensionList>
+
+  <ExecutionEnvironment>
+    <HostList>
+      <Host Name="AEFT" Version="[14.0,99.9]" />
+    </HostList>
+    <LocaleList>
+      <Locale Code="All" />
+    </LocaleList>
+    <RequiredRuntimeList>
+      <RequiredRuntime Name="CSXS" Version="9.0" />
+    </RequiredRuntimeList>
+  </ExecutionEnvironment>
+
+  <DispatchInfoList>
+    
+    <!-- 1. MAIN HUB -->
+    <Extension Id="com.sett.hub">
+      <DispatchInfo>
+        <Resources>
+          <MainPath>./index.html</MainPath>
+          <ScriptPath>./jsx/hostscript.jsx</ScriptPath>
+          <CEFCommandLine>
+            <Parameter>--enable-nodejs</Parameter>
+            <Parameter>--mixed-context</Parameter>
+          </CEFCommandLine>
+        </Resources>
+        <Lifecycle>
+          <AutoVisible>true</AutoVisible>
+        </Lifecycle>
+        <UI>
+          <Type>Panel</Type>
+          <Menu>Sett Iteration Tools</Menu>
+          <Geometry>
+            <Size>
+              <Height>600</Height>
+              <Width>300</Width>
+            </Size>
+            <MinSize>
+               <Height>200</Height>
+               <Width>200</Width>
+            </MinSize>
+          </Geometry>
+        </UI>
+      </DispatchInfo>
+    </Extension>
+
+    <!-- 2. AI Image Expander -->
+    <Extension Id="com.ilanlenzner.aiimageexpander.panel">
+      <DispatchInfo>
+        <Resources>
+          <MainPath>./modules/AIImageExpander/dist/index.html</MainPath>
+          <ScriptPath>./modules/AIImageExpander/jsx/hostscript.jsx</ScriptPath>
+           <CEFCommandLine>
+            <Parameter>--enable-nodejs</Parameter>
+            <Parameter>--mixed-context</Parameter>
+          </CEFCommandLine>
+        </Resources>
+        <Lifecycle>
+           <AutoVisible>false</AutoVisible>
+        </Lifecycle>
+        <UI>
+           <Type>Panel</Type>
+              <Geometry>
+            <Size><Height>800</Height><Width>1200</Width></Size>
+          </Geometry>
+        </UI>
+      </DispatchInfo>
+    </Extension>
+
+    <!-- 3. AI Upscaler -->
+    <Extension Id="com.ilanlenzner.aiupscaler.panel">
+      <DispatchInfo>
+        <Resources>
+          <MainPath>./modules/AIUpscaler/index.html</MainPath>
+          <ScriptPath>./modules/AIUpscaler/host/index.jsx</ScriptPath>
+           <CEFCommandLine>
+            <Parameter>--enable-nodejs</Parameter>
+            <Parameter>--mixed-context</Parameter>
+          </CEFCommandLine>
+        </Resources>
+        <Lifecycle>
+           <AutoVisible>false</AutoVisible>
+        </Lifecycle>
+        <UI>
+           <Type>Panel</Type>
+              <Geometry>
+            <Size><Height>800</Height><Width>500</Width></Size>
+          </Geometry>
+        </UI>
+      </DispatchInfo>
+    </Extension>
+
+    <!-- 4. BG Remover -->
+    <Extension Id="com.sett.bgremover">
+      <DispatchInfo>
+        <Resources>
+          <MainPath>./modules/BGRemover/index.html</MainPath>
+          <ScriptPath>./modules/BGRemover/hostscript.jsx</ScriptPath>
+           <CEFCommandLine>
+            <Parameter>--enable-nodejs</Parameter>
+            <Parameter>--mixed-context</Parameter>
+          </CEFCommandLine>
+        </Resources>
+        <Lifecycle>
+           <AutoVisible>false</AutoVisible>
+        </Lifecycle>
+        <UI>
+           <Type>Panel</Type>
+              <Geometry>
+            <Size><Height>600</Height><Width>350</Width></Size>
+          </Geometry>
+        </UI>
+      </DispatchInfo>
+    </Extension>
+
+    <!-- 5. AI Image Variations -->
+    <Extension Id="com.ilanlenzner.aiImageVariations">
+      <DispatchInfo>
+        <Resources>
+          <MainPath>./modules/AIImageVariations/index.html</MainPath>
+          <ScriptPath>./modules/AIImageVariations/jsx/hostscript.jsx</ScriptPath>
+           <CEFCommandLine>
+            <Parameter>--enable-nodejs</Parameter>
+            <Parameter>--mixed-context</Parameter>
+          </CEFCommandLine>
+        </Resources>
+        <Lifecycle>
+           <AutoVisible>false</AutoVisible>
+        </Lifecycle>
+        <UI>
+           <Type>Panel</Type>
+              <Geometry>
+            <Size><Height>800</Height><Width>500</Width></Size>
+          </Geometry>
+        </UI>
+      </DispatchInfo>
+    </Extension>
+
+    <!-- 6. Kling Video -->
+    <Extension Id="com.kling.extension.panel">
+      <DispatchInfo>
+        <Resources>
+          <MainPath>./modules/KlingVideo/index.html</MainPath>
+          <ScriptPath>./modules/KlingVideo/jsx/hostscript.jsx</ScriptPath>
+          <CEFCommandLine>
+            <Parameter>--enable-nodejs</Parameter>
+            <Parameter>--mixed-context</Parameter>
+            <Parameter>--enable-media-stream</Parameter>
+          </CEFCommandLine>
+        </Resources>
+        <Lifecycle>
+           <AutoVisible>false</AutoVisible>
+        </Lifecycle>
+        <UI>
+           <Type>Panel</Type>
+              <Geometry>
+            <Size><Height>600</Height><Width>400</Width></Size>
+          </Geometry>
+        </UI>
+      </DispatchInfo>
+    </Extension>
+
+    <!-- 7. Video Expander -->
+    <Extension Id="com.videoexpander.panel">
+      <DispatchInfo>
+        <Resources>
+          <MainPath>./modules/VideoExpander/index.html</MainPath>
+          <ScriptPath>./modules/VideoExpander/jsx/hostscript.jsx</ScriptPath>
+           <CEFCommandLine>
+            <Parameter>--enable-nodejs</Parameter>
+            <Parameter>--mixed-context</Parameter>
+          </CEFCommandLine>
+        </Resources>
+        <Lifecycle>
+           <AutoVisible>false</AutoVisible>
+        </Lifecycle>
+        <UI>
+           <Type>Panel</Type>
+              <Geometry>
+            <Size><Height>600</Height><Width>400</Width></Size>
+          </Geometry>
+        </UI>
+      </DispatchInfo>
+    </Extension>
+
+    <!-- 8. Sonic Forge FX -->
+    <Extension Id="com.ilanlenzner.sonicforge.panel">
+      <DispatchInfo>
+        <Resources>
+          <MainPath>./modules/SonicForgeFX/index.html</MainPath>
+          <ScriptPath>./modules/SonicForgeFX/host/index.jsx</ScriptPath>
+          <CEFCommandLine>
+            <Parameter>--enable-nodejs</Parameter>
+          </CEFCommandLine>
+        </Resources>
+        <Lifecycle>
+           <AutoVisible>false</AutoVisible>
+        </Lifecycle>
+        <UI>
+           <Type>Panel</Type>
+              <Geometry>
+            <Size><Height>800</Height><Width>500</Width></Size>
+          </Geometry>
+        </UI>
+      </DispatchInfo>
+    </Extension>
+
+    <!-- 9. Sonic Forge Music -->
+    <Extension Id="com.sonicforge.extension.panel">
+      <DispatchInfo>
+        <Resources>
+          <MainPath>./modules/SonicForgeMusic/client/index.html</MainPath>
+          <ScriptPath>./modules/SonicForgeMusic/jsx/hostscript.jsx</ScriptPath>
+           <CEFCommandLine>
+            <Parameter>--enable-nodejs</Parameter>
+            <Parameter>--mixed-context</Parameter>
+          </CEFCommandLine>
+        </Resources>
+        <Lifecycle>
+           <AutoVisible>false</AutoVisible>
+        </Lifecycle>
+        <UI>
+           <Type>Panel</Type>
+              <Geometry>
+            <Size><Height>600</Height><Width>800</Width></Size>
+          </Geometry>
+        </UI>
+      </DispatchInfo>
+    </Extension>
+
+    <!-- 10. ElevenLabs Voiceover -->
+    <Extension Id="com.antigravity.elevenlabs.voiceover.panel">
+      <DispatchInfo>
+        <Resources>
+          <MainPath>./modules/ElevenLabsVoice/client/index.html</MainPath>
+          <ScriptPath>./modules/ElevenLabsVoice/host/index.jsx</ScriptPath>
+           <CEFCommandLine>
+            <Parameter>--enable-nodejs</Parameter>
+            <Parameter>--enable-media-stream</Parameter>
+          </CEFCommandLine>
+        </Resources>
+        <Lifecycle>
+           <AutoVisible>false</AutoVisible>
+        </Lifecycle>
+        <UI>
+           <Type>Panel</Type>
+              <Geometry>
+            <Size><Height>600</Height><Width>400</Width></Size>
+          </Geometry>
+        </UI>
+      </DispatchInfo>
+    </Extension>
+
+  </DispatchInfoList>
+</ExtensionManifest>

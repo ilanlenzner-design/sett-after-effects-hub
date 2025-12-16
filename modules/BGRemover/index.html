@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BG Remover</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>BG Remover</h1>
+            <button id="settingsBtn" class="icon-btn" title="Settings">⚙️</button>
+        </div>
+
+        <!-- Settings Panel -->
+        <div id="settingsPanel" class="settings-panel" style="display: none;">
+            <div class="settings-content">
+                <h3>API Configuration</h3>
+                <label for="replicateApiKey">Replicate API Key:</label>
+                <input type="password" id="replicateApiKey" placeholder="r8_xxxxxxxxxxxxxxxxxxxxx">
+                <p class="hint-text">Get your API key from <a href="https://replicate.com/account/api-tokens"
+                        target="_blank">replicate.com/account/api-tokens</a></p>
+                <button id="saveSettings" class="btn-primary">Save Settings</button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div id="mainContent" class="main-content">
+            <!-- Source Selection -->
+            <div class="section">
+                <h3>1. Select Source</h3>
+                <button id="getSelectedLayer" class="btn-primary">Get Selection</button>
+                <div id="sourcePreview" class="preview-box">
+                    <p class="placeholder-text">No layer selected</p>
+                </div>
+                <div id="sourceInfo" class="info-text"></div>
+            </div>
+
+            <!-- Process Section -->
+            <div class="section">
+                <h3>2. Remove Background</h3>
+                <button id="processBtn" class="btn-primary" disabled>Remove Background</button>
+                <div id="progressContainer" class="progress-container" style="display: none;">
+                    <div class="progress-bar">
+                        <div id="progressFill" class="progress-fill"></div>
+                    </div>
+                    <p id="statusText" class="status-text">Processing...</p>
+                </div>
+            </div>
+
+            <!-- Result Section -->
+            <div class="section">
+                <h3>3. Result</h3>
+                <div id="resultPreview" class="preview-box">
+                    <p class="placeholder-text">Processed image will appear here</p>
+                </div>
+                <button id="importBtn" class="btn-primary" disabled>Import to After Effects</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/CSInterface.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

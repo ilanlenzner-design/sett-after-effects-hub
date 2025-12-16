@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Upscaler</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="app-container">
+        <header>
+            <h1>AI Upscaler</h1>
+            <button id="btn-settings" class="icon-btn" title="Settings">⚙️</button>
+        </header>
+
+        <main>
+            <!-- Source Selection -->
+            <section class="card input-section">
+                <h2>Source Image</h2>
+                <div class="file-display" id="selected-file-display">
+                    <span class="icon">🖼️</span>
+                    <span class="text" id="file-name">No layer selected</span>
+                </div>
+                <button id="btn-get-layer" class="btn btn-secondary">
+                    Get Selected Layer
+                </button>
+            </section>
+
+            <!-- Settings -->
+            <section class="card settings-section">
+                <h2>Settings</h2>
+
+                <div class="control-group">
+                    <label for="scale-factor">Scale Factor</label>
+                    <div class="slider-container">
+                        <input type="range" id="scale-factor" min="2" max="10" value="4" step="0.5">
+                        <span class="value-display" id="scale-value">4x</span>
+                    </div>
+                </div>
+
+                <div class="control-group toggle-group">
+                    <label for="face-enhance">Face Enhance</label>
+                    <label class="switch">
+                        <input type="checkbox" id="face-enhance" checked>
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+            </section>
+
+            <!-- Action -->
+            <div class="action-area">
+                <button id="btn-upscale" class="btn btn-primary btn-large" disabled>
+                    Upscale Image
+                </button>
+            </div>
+
+            <!-- Result -->
+            <section class="card result-section hidden" id="result-section">
+                <h2>Result</h2>
+                <div class="preview-container">
+                    <img id="result-preview" src="" alt="Upscaled result">
+                </div>
+                <button id="btn-import" class="btn btn-success top-margin">
+                    Import to After Effects
+                </button>
+            </section>
+        </main>
+
+        <!-- Loading Overlay -->
+        <div id="loader" class="loader-overlay hidden">
+            <div class="spinner"></div>
+            <p id="loader-text">Processing...</p>
+        </div>
+
+        <!-- Settings Modal -->
+        <div id="settings-modal" class="modal hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Settings</h2>
+                    <button id="close-settings" class="close-btn">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="control-group">
+                        <label for="api-key">Replicate API Token</label>
+                        <input type="password" id="api-key" placeholder="r8_..." value="">
+                        <p class="help-text">Your key is saved locally.</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="save-settings" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Toast Notification -->
+        <div id="toast" class="toast hidden"></div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="CSInterface.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

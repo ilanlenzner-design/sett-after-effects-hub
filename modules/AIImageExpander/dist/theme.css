@@ -1,0 +1,145 @@
+/* After Effects Theme Overrides - Refined */
+
+/* Main Background - Darker #101010 */
+.bg-gray-900,
+body.bg-gray-900 {
+  background-color: #101010 !important;
+}
+
+/* Secondary Backgrounds - Panels/Cards */
+.bg-gray-800 {
+  background-color: #1c1c1c !important;
+  /* Slightly lighter than main bg */
+  border: 1px solid #333 !important;
+  /* Modern border */
+}
+
+/* Buttons - Vibrant Blue #1368e2 with Glow */
+.bg-indigo-600,
+.bg-indigo-500,
+.hover\:bg-indigo-500:hover,
+.hover\:bg-indigo-400:hover {
+  background-color: #1368e2 !important;
+  box-shadow: 0 4px 12px rgba(19, 104, 226, 0.4) !important;
+  /* Modern Glow */
+  transition: all 0.2s ease-in-out !important;
+  border: none !important;
+}
+
+.bg-indigo-600:hover,
+.bg-indigo-500:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+.bg-indigo-600:active,
+.bg-indigo-500:active {
+  transform: translateY(0);
+}
+
+/* Button Borders */
+.border-indigo-500,
+.border-indigo-400 {
+  border-color: #1368e2 !important;
+}
+
+/* Typography - Title and Headings */
+h1,
+h2,
+h3,
+.text-3xl,
+.text-2xl,
+.text-xl,
+.font-bold {
+  color: #e0e0e0 !important;
+  /* Light gray for contrast */
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Inputs - Modern Dark Look */
+input,
+textarea,
+select,
+.bg-gray-700 {
+  background-color: #1c1c1c !important;
+  border: 1px solid #333 !important;
+  color: #fff !important;
+  border-radius: 4px !important;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: #1368e2 !important;
+  outline: none !important;
+  box-shadow: 0 0 0 2px rgba(19, 104, 226, 0.3) !important;
+}
+
+/* Scrollbar - Matching Theme */
+::-webkit-scrollbar-track {
+  background: #101010 !important;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333 !important;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #444 !important;
+}
+
+/* Title Gradient - Force Blue */
+h1 span,
+.text-transparent {
+  background-image: linear-gradient(to right, #1368e2, #60a5fa) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: transparent !important;
+  -webkit-text-fill-color: transparent !important;
+}
+/* Custom Select Styles */
+select { display: none !important; }
+.custom-select-container { position: relative; width: 100%; margin-bottom: 10px; }
+.custom-select-selected {
+    background-color: var(--input-bg, #2a2a2a);
+    color: var(--text-color, #ffffff);
+    padding: 10px;
+    border: 1px solid var(--border-color, #333);
+    border-radius: 6px;
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+}
+.custom-select-selected:after {
+    content: ""; width: 0; height: 0;
+    border: 5px solid transparent;
+    border-color: #fff transparent transparent transparent;
+    margin-left: 8px; margin-top: 4px;
+}
+.custom-select-selected.select-arrow-active:after {
+    border-color: transparent transparent #fff transparent;
+    margin-top: -4px;
+}
+.custom-select-items {
+    position: absolute;
+    background-color: #1e1e1e;
+    top: 100%; left: 0; right: 0; z-index: 9999;
+    border: 1px solid #333;
+    border-top: none; border-radius: 0 0 6px 6px;
+    max-height: 250px; overflow-y: auto;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.6);
+}
+.custom-select-items div {
+    color: #eee;
+    padding: 10px; cursor: pointer; user-select: none;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.custom-select-items div:hover {
+    background-color: #5794eb;
+    color: white;
+}
+.select-hide { display: none; }

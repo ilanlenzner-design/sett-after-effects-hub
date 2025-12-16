@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExtensionManifest Version="7.0" ExtensionBundleId="com.ilanlenzner.aiimageexpander" ExtensionBundleVersion="1.0.0"
+                   ExtensionBundleName="AI Image Expander" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Author>Ilan Lenzner</Author>
+  <Contact>info@ilanlenzner.com</Contact>
+  <Legal>https://ilanlenzner.com</Legal>
+  <Abstract>https://ilanlenzner.com</Abstract>
+  <ExtensionList>
+    <Extension Id="com.ilanlenzner.aiimageexpander.panel" Version="1.0.0"/>
+  </ExtensionList>
+  <ExecutionEnvironment>
+    <HostList>
+      <Host Name="AEFT" Version="[0.0,99.9]"/>
+    </HostList>
+    <LocaleList>
+      <Locale Code="All"/>
+    </LocaleList>
+    <RequiredRuntimeList>
+      <RequiredRuntime Name="CSXS" Version="11.0"/>
+    </RequiredRuntimeList>
+  </ExecutionEnvironment>
+  <DispatchInfoList>
+    <Extension Id="com.ilanlenzner.aiimageexpander.panel">
+      <DispatchInfo>
+        <Resources>
+          <MainPath>./dist/index.html</MainPath>
+          <ScriptPath>./jsx/hostscript.jsx</ScriptPath>
+          <CEFCommandLine>
+            <Parameter>--enable-nodejs</Parameter>
+            <Parameter>--mixed-context</Parameter>
+          </CEFCommandLine>
+        </Resources>
+        <Lifecycle>
+          <AutoVisible>true</AutoVisible>
+        </Lifecycle>
+        <UI>
+          <Type>Panel</Type>
+          <Menu>AI Image Expander</Menu>
+          <Geometry>
+            <Size>
+              <Height>800</Height>
+              <Width>1200</Width>
+            </Size>
+            <MinSize>
+              <Height>400</Height>
+              <Width>600</Width>
+            </MinSize>
+          </Geometry>
+          <Icons>
+          </Icons>
+        </UI>
+      </DispatchInfo>
+    </Extension>
+  </DispatchInfoList>
+</ExtensionManifest>
