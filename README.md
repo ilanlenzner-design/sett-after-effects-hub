@@ -15,6 +15,7 @@ Sett Hub integrates the following tools into a single, cohesive panel:
 *   **AI Sound FX (Sonic Forge)**: Generate cinematic sound effects on demand.
 *   **AI Music Creation (Sonic Forge)**: Compose original, royalty-free music tracks.
 *   **AI Voiceover (ElevenLabs)**: Generate professional voiceovers using ElevenLabs integration.
+*   **Smart Text Copywriter**: Generate & style ad copy instantly using AI (powered by Google Gemini).
 
 ## 🛠️ Installation
 
