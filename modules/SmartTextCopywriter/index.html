@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Smart Copywriter</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <div id="app">
+        <header>
+            <h1>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                </svg>
+                Smart Copy
+            </h1>
+            <button id="settings-btn" class="icon-btn" title="Settings">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path
+                        d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
+                    </path>
+                </svg>
+            </button>
+        </header>
+
+        <main>
+            <div class="input-section">
+                <div class="input-header">
+                    <label>Selected Source Text</label>
+                    <button id="refresh-source-btn" class="icon-btn" title="Refresh Selection">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M23 4v6h-6M1 20v-6h6"></path>
+                            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                        </svg>
+                    </button>
+                </div>
+                <textarea id="draft-text" placeholder="Select a text layer in After Effects to auto-fill..."
+                    readonly></textarea>
+            </div>
+
+            <button id="generate-btn" class="primary-btn">
+                <span>✨ Analyze & Improve</span>
+            </button>
+
+            <div class="tools-row">
+                <button id="add-bg-btn" class="secondary-btn" title="Add Auto-Resizing Background">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        style="margin-right:4px">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                    </svg>
+                    Add Box
+                </button>
+
+                <div class="motion-group" style="display:flex; gap:4px; flex:1;">
+                    <select id="anim-select"
+                        style="flex:1; background:#2c2c2c; color:white; border:1px solid #333; border-radius:4px; font-size:11px; padding-left:4px;">
+                        <option value="pop">Pop (Elastic)</option>
+                        <option value="typewriter">Typewriter</option>
+                        <option value="slam">Slam (Impact)</option>
+                        <option value="glitch">Glitch Decode</option>
+                    </select>
+                    <button id="apply-anim-btn" class="secondary-btn" title="Apply Animation">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <div class="tools-row">
+                <button id="visuals-btn" class="secondary-btn" style="flex:1; justify-content:center;"
+                    title="Generate 3 Visual Variants">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        style="margin-right:6px">
+                        <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>
+                    </svg>
+                    A/B Variants
+                </button>
+                <button id="sentiment-btn" class="secondary-btn" style="flex:1; justify-content:center;"
+                    title="AI Auto-Format based on Text Emotion">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        style="margin-right:6px">
+                        <path
+                            d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z">
+                        </path>
+                    </svg>
+                    AI Format
+                </button>
+            </div>
+
+            <div class="tools-row">
+                <button id="highlight-btn" class="secondary-btn"
+                    style="width:100%; justify-content:center; color:#FFD700; border-color:#554400;"
+                    title="Highlight Power Words (Gold + Bold)">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        style="margin-right:6px">
+                        <path d="M12 19l7-7 3 3-7 7-3-3z"></path>
+                        <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path>
+                        <path d="M2 2l7.586 7.586"></path>
+                        <circle cx="11" cy="11" r="2"></circle>
+                    </svg>
+                    Auto-Highlight Power Words
+                </button>
+            </div>
+
+            <div id="results-container">
+                <!-- Results will appear here -->
+            </div>
+        </main>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settings-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Settings</div>
+                <button id="close-settings-btn" class="icon-btn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <label style="display:block; margin-bottom:8px;">Gemini API Key</label>
+            <input type="password" id="api-key-input" placeholder="Enter your Gemini API key">
+            <button id="save-settings-btn" class="primary-btn" style="width:100%; margin-bottom: 8px;">Save</button>
+            <button id="debug-btn" class="secondary-btn" style="width:100%; text-align:center;">🔍 Test Connection &
+                List Models</button>
+        </div>
+    </div>
+
+    <!-- External Libs -->
+    <script src="js/CSInterface.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

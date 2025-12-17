@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExtensionList>
+    <Extension Id="com.antigravity.smartcopy.panel">
+        <HostList>
+            <Host Name="PHXS" Port="8088"/>
+            <Host Name="IDSN" Port="8088"/>
+            <Host Name="AICY" Port="8088"/>
+            <Host Name="ILST" Port="8088"/>
+            <Host Name="PPRO" Port="8088"/>
+            <Host Name="AEFT" Port="8088"/>
+        </HostList>
+    </Extension>
+</ExtensionList>

@@ -69,6 +69,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 id: "com.antigravity.elevenlabs.voiceover.panel",
                 icon: '<svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/><path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/></svg>',
                 class: "icon-voice"
+            },
+            {
+                title: "Smart Copywriter AI",
+                description: "Generate & style ad copy instantly",
+                id: "com.antigravity.smartcopy.panel",
+                icon: '<svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M2.5 4v3h5v12h3V7h5V4h-13zm19 5h-9v3h3v7h3v-7h3V9z"/></svg>',
+                class: "icon-copy"
             }
         ];
 

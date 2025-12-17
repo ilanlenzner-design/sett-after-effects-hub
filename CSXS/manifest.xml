@@ -13,6 +13,7 @@
     <Extension Id="com.ilanlenzner.sonicforge.panel" Version="1.0.0" />
     <Extension Id="com.sonicforge.extension.panel" Version="1.0.0" />
     <Extension Id="com.antigravity.elevenlabs.voiceover.panel" Version="1.0.0" />
+    <Extension Id="com.antigravity.smartcopy.panel" Version="1.0.0" />
   </ExtensionList>
 
   <ExecutionEnvironment>
@@ -253,6 +254,29 @@
            <CEFCommandLine>
             <Parameter>--enable-nodejs</Parameter>
             <Parameter>--enable-media-stream</Parameter>
+          </CEFCommandLine>
+        </Resources>
+        <Lifecycle>
+           <AutoVisible>false</AutoVisible>
+        </Lifecycle>
+        <UI>
+           <Type>Panel</Type>
+              <Geometry>
+            <Size><Height>600</Height><Width>400</Width></Size>
+          </Geometry>
+        </UI>
+      </DispatchInfo>
+    </Extension>
+
+    <!-- 11. Smart Copywriter -->
+    <Extension Id="com.antigravity.smartcopy.panel">
+      <DispatchInfo>
+        <Resources>
+          <MainPath>./modules/SmartTextCopywriter/index.html</MainPath>
+          <ScriptPath>./modules/SmartTextCopywriter/jsx/hostscript.jsx</ScriptPath>
+           <CEFCommandLine>
+            <Parameter>--enable-nodejs</Parameter>
+            <Parameter>--mixed-context</Parameter>
           </CEFCommandLine>
         </Resources>
         <Lifecycle>

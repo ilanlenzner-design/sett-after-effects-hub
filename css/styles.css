@@ -150,6 +150,11 @@ h2 {
     color: #f44242;
 }
 
+.icon-copy {
+    background-color: rgba(255, 215, 0, 0.2);
+    color: #ffd700;
+}
+
 .content {
     flex: 1;
     min-width: 0;
