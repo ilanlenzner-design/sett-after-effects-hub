@@ -1,0 +1,22 @@
+/* Animation Button Styling */
+.anim-btn {
+    flex: 1;
+    background-color: #2c2c2c;
+    border: 1px solid #333;
+    color: white;
+    padding: 6px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 11px;
+    transition: all 0.2s;
+    min-width: 50px;
+}
+
+.anim-btn:hover {
+    background-color: #3d3d3d;
+    border-color: #6c5ce7;
+}
+
+.anim-btn:active {
+    transform: scale(0.95);
+}

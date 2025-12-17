@@ -142,42 +142,55 @@ function applyAnimationPreset(type) {
         var t = comp.time;
 
         if (type === "pop") {
-            // Elastic Scale Up
+            // Simple Pop animation (scale up then back)
+            $.writeln("applyAnimationPreset: pop animation start");
             var scaleProp = layer.transform.scale;
+            // start at 0% (invisible)
             scaleProp.setValueAtTime(t, [0, 0]);
-            scaleProp.setValueAtTime(t + 0.5, [100, 100]);
-
-            var expr =
-                "freq = 3; decay = 5;\r" +
-                "n = 0; if (numKeys > 0){ n = nearestKey(time).index; if (key(n).time > time) n--; }\r" +
-                "if (n > 0){ t = time - key(n).time; amp = velocityAtTime(key(n).time - .001); w = freq*Math.PI*2; " +
-                "value + amp*(Math.sin(t*w)/Math.exp(decay*t)/w); }else{ value; }";
-
-            scaleProp.expression = expr;
+            // quickly pop to 120%
+            scaleProp.setValueAtTime(t + 0.2, [120, 120]);
+            // settle back to 100%
+            scaleProp.setValueAtTime(t + 0.4, [100, 100]);
+            $.writeln("applyAnimationPreset: pop animation keyframes set");
 
         } else if (type === "typewriter") {
-            // Text Animator: Opacity
+            // Text Animator: Opacity Reveal
             if (!(layer instanceof TextLayer)) return JSON.stringify({ error: "Typewriter requires a text layer." });
 
             var animator = layer.Text.Animators.addProperty("ADBE Text Animator");
             animator.name = "Typewriter";
 
-            // Add Opacity Property
-            var opacityProp = animator.property("ADBE Text Animator Properties").addProperty("ADBE Text Opacity");
-            opacityProp.setValue(0);
+            // Add Opacity to the Properties group
+            // We use a try-catch for the specific property addition in case of naming quirks
+            var props = animator.property("ADBE Text Animator Properties");
+            var opacityProp;
 
-            // Safely Get Range Selector
+            // Try adding Opacity
+            if (props.canAddProperty("ADBE Text Opacity")) {
+                opacityProp = props.addProperty("ADBE Text Opacity");
+            } else {
+                // Formatting fallback or older AE version safeguard, though unlikely for Opacity
+                return JSON.stringify({ error: "Cannot add Opacity to text animator." });
+            }
+
+            opacityProp.setValue(0); // Selected characters are invisible
+
             var selectorsGroup = animator.property("ADBE Text Selectors");
             var selector;
             if (selectorsGroup.numProperties > 0) {
-                selector = selectorsGroup.property(1); // Use existing default
+                selector = selectorsGroup.property(1);
             } else {
-                selector = selectorsGroup.addProperty("ADBE Text Selector"); // Create if missing
+                selector = selectorsGroup.addProperty("ADBE Text Selector");
             }
 
+            // Animate Start: 0% (All text selected/hidden) -> 100% (No text selected/visible)
             var startProp = selector.property("ADBE Text Percent Start");
             startProp.setValueAtTime(t, 0);
             startProp.setValueAtTime(t + 1.5, 100);
+
+            // Ensure End is 100
+            var endProp = selector.property("ADBE Text Percent End");
+            endProp.setValue(100);
 
         } else if (type === "slam") {
             // Hard Slam: Scale + Opacity
@@ -189,10 +202,6 @@ function applyAnimationPreset(type) {
 
             opacity.setValueAtTime(t, 0);
             opacity.setValueAtTime(t + 0.05, 100);
-
-            // Add slight bounce expression to soften the impact
-            // Simple hard slam is often better without the wobble if it's meant to be aggressive.
-            // Let's stick to just the keyframes for "Impact".
 
         } else if (type === "glitch") {
             if (!(layer instanceof TextLayer)) return JSON.stringify({ error: "Glitch requires a text layer." });
@@ -219,9 +228,6 @@ function applyAnimationPreset(type) {
 
             // Randomize Order
             range.property("ADBE Text Range Advanced").property("ADBE Text Randomize Order").setValue(1);
-
-            // Optional: Animate opacity to flicker in? 
-            // For now, just the character scrambling is the core effect.
         }
 
         app.endUndoGroup();
@@ -351,15 +357,21 @@ function applySentimentStyle(styleDataStr) {
 
         // Apply Tracking/Spacing
         if (styleData.tracking !== undefined) {
-            textDoc.tracking = styleData.tracking;
+            // Ensure integer. If AI returns < 1 (e.g. 0.08), assume it meant 0 or normalized, 
+            // but usually AE tracking is 0-1000+. Let's just round it.
+            textDoc.tracking = Math.round(styleData.tracking);
+        }
+
+        // Apply Formatted Text (Line Breaks)
+        if (styleData.formattedText) {
+            textDoc.text = styleData.formattedText;
         }
 
         // Update Text
         textProp.setValue(textDoc);
 
-        // Apply Animation if requested (and not conflicting)
-        // We can reuse our existing animation function logic!
-        // But for now, let's just stick to the static style to avoid overwriting existing animations too aggressively.
+        app.endUndoGroup();
+        return JSON.stringify({ success: true, sentiment: styleData.sentiment || "Applied" });
 
     } catch (e) {
         return JSON.stringify({ error: "Style Error: " + e.toString() });

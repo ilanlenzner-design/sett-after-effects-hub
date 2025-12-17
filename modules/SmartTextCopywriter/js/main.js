@@ -38,9 +38,12 @@ function init() {
     // Design Tools
     document.getElementById("add-bg-btn").addEventListener("click", () => runDesignTool("addSmartBackground"));
 
-    document.getElementById("apply-anim-btn").addEventListener("click", () => {
-        const type = document.getElementById("anim-select").value;
-        runDesignTool("applyAnimationPreset", type);
+    // Animation buttons
+    document.querySelectorAll('.anim-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const type = btn.getAttribute('data-anim');
+            runDesignTool('applyAnimationPreset', type);
+        });
     });
 
     document.getElementById("visuals-btn").addEventListener("click", () => runDesignTool("createVisualVariants"));
@@ -62,20 +65,26 @@ function runDesignTool(funcName, arg) {
     }
 
     // Construct script: func('arg')
-    // We need to escape single quotes if it's a string
-    const safeArg = scriptArg ? `'${scriptArg.replace(/'/g, "\\'")}'` : "";
+    // We need to escape backslashes first to preserve JSON structure, then escape single quotes.
+    const safeArg = scriptArg ? `'${scriptArg.replace(/\\/g, "\\\\").replace(/'/g, "\\'")}'` : "";
     const script = `${funcName}(${safeArg})`;
 
+    // alert("DEBUG: EvalScript -> " + script); // PROBING SCRIPT CONSTRUCTION
+
     csInterface.evalScript(script, (res) => {
-        const result = JSON.parse(res);
-        if (result.success) {
-            // success
-            if (result.sentiment) {
-                // Optional: Show a toast? 
-                console.log("Applied sentiment: " + result.sentiment);
+        // alert("DEBUG: EvalScript Result -> " + res); // PROBING RESULT
+        try {
+            const result = JSON.parse(res);
+            if (result.success) {
+                // success
+                if (result.sentiment) {
+                    console.log("Applied sentiment: " + result.sentiment);
+                }
+            } else {
+                alert("Extension Script Error: " + (result.error || "Unknown error"));
             }
-        } else {
-            alert("Error: " + result.error);
+        } catch (e) {
+            alert("Result Parse Error: " + e.message + "\nRaw response: " + res);
         }
     });
 }
@@ -170,30 +179,29 @@ async function analyzeAndStyle() {
         btn.innerHTML = `🔮 AI Thinking...`;
 
         const prompt = `
-        Analyze the emotion of this game UI text: "${text}"
+        Analyze the structure of this game UI text: "${text}"
         
-        Return a JSON object for visual styling based on the emotion.
-        
-        Output Format:
-        {
-            "sentiment": "One word summary (e.g. Danger, Victory, Calm)",
-            "fillColor": [R, G, B], // Array of 3 floats between 0.0 and 1.0 (Red=1,0,0)
-            "strokeColor": [R, G, B], // Array or null
-            "strokeWidth": Number, // Px (e.g. 5)
-            "tracking": Number // (e.g. 0, 100)
-        }
+        1. Format the text with newlines (\\n) to make it balanced and punchy (max 3 lines).
+        2. Do NOT change the meaning.
+        3. Do NOT change the colors (return null for colors).
 
-        Style Guide:
-        - Urgent/Danger | "Warning", "Boss": Red/Orange ([1, 0.2, 0.2]), thick stroke, tight tracking (0).
-        - Victory/Premium | "Win", "Success": Gold/Yellow ([1, 0.84, 0]), wide tracking (100).
-        - Calm/Info | "Relax", "Settings": Blue/Cyan ([0.2, 0.8, 1]), no stroke, normal tracking (50).
-        - Magic/Fantasy | "Mana", "Spell": Purple/Pink ([0.8, 0.2, 1]), thin stroke.
-        - Default: White ([1,1,1]), no stroke.
+        Output JSON:
+        {
+            "sentiment": "One word summary",
+            "formattedText": "The text\\nwith line breaks",
+            "fillColor": null,
+            "strokeColor": null,
+            "strokeWidth": null,
+            "tracking": 0
+        }
         `;
 
         const data = await callGeminiAPI(prompt);
         const resultText = data.candidates[0].content.parts[0].text;
-        const styleData = JSON.parse(resultText);
+
+        // Clean JSON formatting
+        const cleanJson = resultText.replace(/```json|```/g, "").trim();
+        const styleData = JSON.parse(cleanJson);
 
         btn.innerHTML = `✨ Applying...`;
 
