@@ -22,8 +22,13 @@
     const btnText = generateBtn.querySelector('.btn-text');
     const loader = generateBtn.querySelector('.loader');
 
+    // Preview Elements
+    const playPreviewBtn = document.getElementById('play-preview');
+    const previewAudio = document.getElementById('voice-preview-audio');
+
     // State
     let voicesLoaded = false;
+    let voicePreviews = {}; // Map: voiceId -> previewUrl
 
     // --- Initialization ---
     function init() {
@@ -81,15 +86,26 @@
             const voices = await elevenLabs.getVoices();
 
             voiceSelect.innerHTML = '';
+            voicePreviews = {}; // Reset previews
+
             voices.forEach(voice => {
                 const option = document.createElement('option');
                 option.value = voice.voice_id;
                 option.textContent = voice.name;
                 voiceSelect.appendChild(option);
+
+                // Store preview URL if available
+                if (voice.preview_url) {
+                    voicePreviews[voice.voice_id] = voice.preview_url;
+                }
             });
 
             voiceSelect.disabled = false;
             voicesLoaded = true;
+
+            // Trigger change event to update preview button state
+            voiceSelect.dispatchEvent(new Event('change'));
+
             showStatus('Voices loaded.', 'success');
 
         } catch (error) {
@@ -147,6 +163,42 @@
         }
     }
 
+    async function handlePlayPreview() {
+        const voiceId = voiceSelect.value;
+        const previewUrl = voicePreviews[voiceId];
+
+        if (!previewUrl) {
+            showStatus("No preview available for this voice.", "normal");
+            return;
+        }
+
+        try {
+            previewAudio.src = previewUrl;
+            await previewAudio.play();
+            showStatus("Playing preview...", "normal");
+
+            // Optional: visual feedback during playback could go here
+            // e.g., toggle icon to stop
+
+        } catch (err) {
+            console.error(err);
+            showStatus("Failed to play preview.", "error");
+        }
+    }
+
+    function updatePreviewButtonState() {
+        const voiceId = voiceSelect.value;
+        const hasPreview = !!voicePreviews[voiceId];
+        if (playPreviewBtn) {
+            playPreviewBtn.disabled = !hasPreview;
+            if (!hasPreview && voicesLoaded) {
+                playPreviewBtn.style.opacity = '0.5';
+            } else {
+                playPreviewBtn.style.opacity = '1';
+            }
+        }
+    }
+
     // --- Event Listeners ---
 
     settingsBtn.addEventListener('click', openSettings);
@@ -172,6 +224,12 @@
         }
         loadVoices();
     });
+
+    if (playPreviewBtn) {
+        playPreviewBtn.addEventListener('click', handlePlayPreview);
+    }
+
+    voiceSelect.addEventListener('change', updatePreviewButtonState);
 
     generateBtn.addEventListener('click', handleGenerate);
 
